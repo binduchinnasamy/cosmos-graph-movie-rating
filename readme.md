@@ -5,6 +5,9 @@ This prpogramm utilizes publically avaialable movie rating dataset from Grouplen
 
 Using this Node JS programm, you will be able to upload about 3900 movie details and about 340,000 movie ratings made by 2000 users.
 
+Up on successfully running this program, you will be able to generate graph structure as shown below
+![Graph Structure](https://github.com/binduchinnasamy/cosmos-graph-movie-rating/blob/master/graph-structure.png)
+
 ######  Rating File Description
 All ratings are contained in the file "ratingssubset.dat" and are in the
 following format:
