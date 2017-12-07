@@ -8,7 +8,7 @@ Using this Node JS programm, you will be able to upload about 3900 movie details
 Up on successfully running this program, you will be able to generate graph structure as shown below
 ![Graph Structure](https://github.com/binduchinnasamy/cosmos-graph-movie-rating/blob/master/graph-structure.png)
 
-######  Rating File Description
+##  Rating File Description
 All ratings are contained in the file "ratingssubset.dat" and are in the
 following format:
 
@@ -20,7 +20,7 @@ UserID::MovieID::Rating::Timestamp
 - Timestamp is represented in seconds since the epoch as returned by time(2)
 - Each user has at least 20 ratings
 
-######  User File Description
+##  User File Description
 
 User information is in the file "userssubset.dat" and is in the following
 format:
@@ -62,7 +62,7 @@ UserID::Gender::Age::Occupation::Zip-code
 	* 19:  "unemployed"
 	* 20:  "writer"
 
-###### Movie file description
+## Movie file description
 
 Movie information is in the file "movies.dat" and is in the following
 format:
@@ -89,7 +89,7 @@ MovieID::Title::Genres
 	* Sci-Fi
 	* Thriller
 	* War
-	* Western
+	* Western 
 
 ## Steps to run the programm to create Graph Vertex and Edges in Azure Graph DB
 
