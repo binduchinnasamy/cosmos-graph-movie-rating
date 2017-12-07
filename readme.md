@@ -1,6 +1,5 @@
 # Using Azure Graph DB for Movie recomendation
 
-##Summary
 Purpose of this Node JS code is to bulk create large volume of Vertex and edges in Azure Cosmos Graph DB.
 This prpogramm utilizes publically avaialable movie rating dataset from Grouplens.org [https://grouplens.org/datasets/movielens/]
 We are utilizing subset of data from " MovieLense 1M dataset".
@@ -21,14 +20,10 @@ UserID::MovieID::Rating::Timestamp
 
 ## User File Description
 
-User information is in the file "users.dat" and is in the following
+User information is in the file "userssubset.dat" and is in the following
 format:
 
 UserID::Gender::Age::Occupation::Zip-code
-
-All demographic information is provided voluntarily by the users and is
-not checked for accuracy.  Only users who have provided some demographic
-information are included in this data set.
 
 - Gender is denoted by a "M" for male and "F" for female
 - Age is chosen from the following ranges:
@@ -72,8 +67,7 @@ format:
 
 MovieID::Title::Genres
 
-- Titles are identical to titles provided by the IMDB (including
-year of release)
+- Titles are identical to titles provided by the IMDB 
 - Genres are pipe-separated and are selected from the following genres:
 
 	* Action
@@ -100,10 +94,12 @@ year of release)
 As this programm will be uploading large voumne of dataset to Graph DB, it is best to run one command at a time to avoid any throtling in the server side
 
 1. Update the Azure cosmos Graoh DB connection details in "config.js"
+```
 	config.endpoint = "<<Database account>>.graphs.azure.com";
 	config.primaryKey ="<<>>";
 	config.database ="<<database ID>>";
 	config.collection="<<Collection>>";
+```
 2. Go to the code directory and run "npm install" to install all the node packages required
 3. In Node.JS command prompt run for the following commands One-By-One
 
