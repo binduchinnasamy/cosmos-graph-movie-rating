@@ -1,8 +1,7 @@
 # Using Azure Graph DB for Movie recomendation
 
 Purpose of this Node JS code is to bulk create large volume of Vertex and edges in Azure Cosmos Graph DB.
-This prpogramm utilizes publically avaialable movie rating dataset from Grouplens.org [https://grouplens.org/datasets/movielens/]
-We are utilizing subset of data from " MovieLense 1M dataset".
+This prpogramm utilizes publically avaialable movie rating dataset from Grouplens.org [https://grouplens.org/datasets/movielens/].We are utilizing subset of data from " MovieLense 1M dataset".You don't need to download the movie data once again as it is already downloaded and available as part of this repo.
 
 Using this Node JS programm, you will be able to upload about 3900 movie details and about 340,000 movie ratings made by 2000 users.
 
