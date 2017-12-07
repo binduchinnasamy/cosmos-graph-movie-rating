@@ -94,3 +94,31 @@ year of release)
 	* Thriller
 	* War
 	* Western
+
+## Steps to run the programm to create Graph Vertex and Edges in Azure Graph DB
+
+As this programm will be uploading large voumne of dataset to Graph DB, it is best to run one command at a time to avoid any throtling in the server side
+
+1. Update the Azure cosmos Graoh DB connection details in "config.js"
+	config.endpoint = "<<Database account>>.graphs.azure.com";
+	config.primaryKey ="<<>>";
+	config.database ="<<database ID>>";
+	config.collection="<<Collection>>";
+2. Go to the code directory and run "npm install" to install all the node packages required
+3. In Node.JS command prompt run for the following commands One-By-One
+
+		node app.js --mode=movieset1
+		node app.js --mode=movieset2
+		node app.js --mode=movieset3
+		node app.js --mode=movieset4
+
+		node app.js --mode=occupation
+
+		node --max-old-space-size=8192 app.js --mode=users
+
+		node --max-old-space-size=8192 app.js --mode=rating1
+		node --max-old-space-size=8192 app.js --mode=rating2
+		node --max-old-space-size=8192 app.js --mode=rating3
+		node --max-old-space-size=8192 app.js --mode=rating4
+
+Now your Azure Graph DB should have all the necessory Graph nodes and edges created for analysis
