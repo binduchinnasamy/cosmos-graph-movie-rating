@@ -6,7 +6,7 @@ We are utilizing subset of data from " MovieLense 1M dataset".
 
 Using this Node JS programm, you will be able to upload about 3900 movie details and about 340,000 movie ratings made by 2000 users.
 
-## Rating File Description
+######  Rating File Description
 All ratings are contained in the file "ratingssubset.dat" and are in the
 following format:
 
@@ -18,7 +18,7 @@ UserID::MovieID::Rating::Timestamp
 - Timestamp is represented in seconds since the epoch as returned by time(2)
 - Each user has at least 20 ratings
 
-## User File Description
+######  User File Description
 
 User information is in the file "userssubset.dat" and is in the following
 format:
@@ -60,7 +60,7 @@ UserID::Gender::Age::Occupation::Zip-code
 	* 19:  "unemployed"
 	* 20:  "writer"
 
-## Movie file description
+###### Movie file description
 
 Movie information is in the file "movies.dat" and is in the following
 format:
