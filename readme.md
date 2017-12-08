@@ -8,88 +8,30 @@ Using this Node JS programm, you will be able to upload about 3900 movie details
 Up on successfully running this program, you will be able to generate graph structure as shown below
 ![Graph Structure](https://github.com/binduchinnasamy/cosmos-graph-movie-rating/blob/master/graph-structure.png)
 
-##  Rating File Description
-All ratings are contained in the file "ratingssubset.dat" and are in the
-following format:
+##  Input Files
+
+**Rating File**
+
+All ratings are contained in the file "ratingssubset.dat" and are in the following format:
 
 UserID::MovieID::Rating::Timestamp
 
-- UserIDs range between 1 and 2000 
-- MovieIDs range between 1 and 3952
-- Ratings are made on a 5-star scale (whole-star ratings only)
-- Timestamp is represented in seconds since the epoch as returned by time(2)
-- Each user has at least 20 ratings
+**User File**
 
-##  User File Description
-
-User information is in the file "userssubset.dat" and is in the following
-format:
+User information is in the file "userssubset.dat" and is in the following format:
 
 UserID::Gender::Age::Occupation::Zip-code
 
-- Gender is denoted by a "M" for male and "F" for female
-- Age is chosen from the following ranges:
+**Occupation**
+- OUser information is in the file "occupation.dat". For clarity purpose, When uploading the occupation to Graph DB, Occupation ID is prefixed with 'o'.
 
-	*  1:  "Under 18"
-	* 18:  "18-24"
-	* 25:  "25-34"
-	* 35:  "35-44"
-	* 45:  "45-49"
-	* 50:  "50-55"
-	* 56:  "56+"
-
-- Occupation is chosen from the following choices:
-
-	*  0:  "other" or not specified
-	*  1:  "academic/educator"
-	*  2:  "artist"
-	*  3:  "clerical/admin"
-	*  4:  "college/grad student"
-	*  5:  "customer service"
-	*  6:  "doctor/health care"
-	*  7:  "executive/managerial"
-	*  8:  "farmer"
-	*  9:  "homemaker"
-	* 10:  "K-12 student"
-	* 11:  "lawyer"
-	* 12:  "programmer"
-	* 13:  "retired"
-	* 14:  "sales/marketing"
-	* 15:  "scientist"
-	* 16:  "self-employed"
-	* 17:  "technician/engineer"
-	* 18:  "tradesman/craftsman"
-	* 19:  "unemployed"
-	* 20:  "writer"
-
-## Movie file description
+**Movie**
 
 Movie information is in the file "movies.dat" and is in the following
 format:
 
 MovieID::Title::Genres
-
-- Titles are identical to titles provided by the IMDB 
-- Genres are pipe-separated and are selected from the following genres:
-
-	* Action
-	* Adventure
-	* Animation
-	* Children's
-	* Comedy
-	* Crime
-	* Documentary
-	* Drama
-	* Fantasy
-	* Film-Noir
-	* Horror
-	* Musical
-	* Mystery
-	* Romance
-	* Sci-Fi
-	* Thriller
-	* War
-	* Western 
+- Genres are pipe-separated
 
 ## Steps to run the programm to create Graph Vertex and Edges in Azure Graph DB
 
@@ -136,13 +78,8 @@ What is the average rating movie “Toy Story” received? | :> g.V().hasLabel('
 List the users who are more than 40 years old and rated movie “Toy Story”? | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').outV().has('age',gt(40))
 Which user gave “Toy Story “ more than 3 stars | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(3)).outV())
 Which user gave “Toy Story” more than 4 starts and what other movies did they give more than 4 stars to? | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(3)).outV().outE('rated').has('stars',gt(3)).inV().properties('title').value()
-The above query might return many duplicate values, this is due to the fact that user who liked “Toy Story “ also liked many other movies, the dedup() step in this query filters out the duplicates.
-
-Given that there are 17933 highly rated paths from Toy Story to other movies and only 1961 of those movies are unique, it is possible to use these duplicates as a ranking mechanism–ultimately, a recommendation
+The above query might return many duplicate values, this is due to the fact that user who liked “Toy Story “ also liked many other movies, the dedup() step in this query filters out the duplicates.Given that there are 17933 highly rated paths from Toy Story to other movies and only 1961 of those movies are unique, it is possible to use these duplicates as a ranking mechanism–ultimately, a recommendation
  | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().properties('title').value().dedup()
-========================= Ref===============
-gremlin> :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().properties('title').value().count()
-==>17933
-gremlin> :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().properties('title').value().dedup().count()
-==>1961
-gremlin>
+Which movies are most highly co-rated with Toy Story? | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().groupCount().by('title')
+Which movies are most highly co-rated with Toy Story? | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().groupCount().by('title')
+Movies that are genre “Comedy”  and highly co-rated with “Toy Story”? | :> g.V().hasLabel('movie').has('title','Toy Story ').as('x').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().dedup().as('y').outE('hasGenere').inV().has('id','Comedy').select('y').by('title')
