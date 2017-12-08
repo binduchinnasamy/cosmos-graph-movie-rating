@@ -135,4 +135,14 @@ Get all the ratings given for movie “Toy Story”? | g.V().hasLabel('movie').h
 What is the average rating movie “Toy Story” received? | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').properties('stars').value().mean()
 List the users who are more than 40 years old and rated movie “Toy Story”? | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').outV().has('age',gt(40))
 Which user gave “Toy Story “ more than 3 stars | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(3)).outV())
-Which user gave “Toy Story “ more than 3 stars | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(3)).outV())
+Which user gave “Toy Story” more than 4 starts and what other movies did they give more than 4 stars to? | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(3)).outV().outE('rated').has('stars',gt(3)).inV().properties('title').value()
+The above query might return many duplicate values, this is due to the fact that user who liked “Toy Story “ also liked many other movies, the dedup() step in this query filters out the duplicates.
+
+Given that there are 17933 highly rated paths from Toy Story to other movies and only 1961 of those movies are unique, it is possible to use these duplicates as a ranking mechanism–ultimately, a recommendation
+ | :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().properties('title').value().dedup()
+========================= Ref===============
+gremlin> :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().properties('title').value().count()
+==>17933
+gremlin> :> g.V().hasLabel('movie').has('title','Toy Story ').inE('rated').has('stars',gt(4)).outV().outE('rated').has('stars',gt(4)).inV().properties('title').value().dedup().count()
+==>1961
+gremlin>
