@@ -61,7 +61,7 @@ As this program will be uploading large volume of dataset to Graph DB, it is bes
 		node --max-old-space-size=8192 app.js --mode=rating3
 		node --max-old-space-size=8192 app.js --mode=rating4
 
-###Sample Gremlin queries
+##Sample Gremlin queries
 
 You can use the sample queries given below to perform analysis with the data you just uploaded to Azure Cosmos Graph DB. You fire these queries from Gremlin Console installed in your machine.
 
