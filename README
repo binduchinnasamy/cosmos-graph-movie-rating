@@ -110,7 +110,7 @@ Running the Programm to create Graph Vertex and Edges in Azure Graph DB
 As this programm will be uploading large voumne of dataset to Graph DB, it is best to run one command at a time to avoid any throtling in the server side
 
 1. Update the Azure cosmos Graoh DB connection details in "config.js"
-	config.endpoint = "<<Database account>>.graphs.azure.com";
+	config.endpoint = "<<Gremilin EndPoint from your Azure Cosmos DB Graph Account>>";
 	config.primaryKey ="<<>>";
 	config.database ="<<database ID>>";
 	config.collection="<<Collection>>";
